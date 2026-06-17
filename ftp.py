@@ -4,9 +4,8 @@ import ssl
 from ftplib import FTP, FTP_TLS
 from datetime import datetime
 
-# ==========================
+
 # KONFIGURACJA
-# ==========================
 
 FILES_TO_BACKUP = [
     r"C:\Users\Iza\Desktop\semestr2\programowanieskryptowe\plik1.txt",
@@ -20,9 +19,7 @@ FTP_USER = "iza"
 FTP_PASSWORD = "haslo123"
 FTP_REMOTE_DIR = "/"
 
-# ==========================
 # KLASA FTPS Z TLS SESSION REUSE
-# ==========================
 
 class ReusableSessionFTP_TLS(FTP_TLS):
     def ntransfercmd(self, cmd, rest=None):
@@ -37,10 +34,7 @@ class ReusableSessionFTP_TLS(FTP_TLS):
 
         return conn, size
 
-# ==========================
 # TWORZENIE ARCHIWUM
-# ==========================
-
 def create_archive(files, backup_dir):
     os.makedirs(backup_dir, exist_ok=True)
 
@@ -58,10 +52,8 @@ def create_archive(files, backup_dir):
 
     return archive_path
 
-# ==========================
-# WYSYŁANIE NA SERWER FTPS
-# ==========================
 
+# WYSYŁANIE NA SERWER FTPS
 def upload_to_ftps(file_path):
     context = ssl._create_unverified_context()
 
@@ -96,10 +88,8 @@ def upload_to_ftps(file_path):
         except:
             ftps.close()
 
-# ==========================
-# PROGRAM GŁÓWNY
-# ==========================
 
+# PROGRAM GŁÓWNY
 def main():
     try:
         archive = create_archive(FILES_TO_BACKUP, BACKUP_DIR)
